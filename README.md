@@ -13,6 +13,8 @@ AI 自主渗透测试系统（Go 后端 + Next.js 前端）
 
 📦 **独立维护版**（接手自已删除的原作者仓库）；Docker 镜像：`xingchuan1314/artex`（Docker Hub）· `ghcr.io/chu0119/artex`
 
+🧠 **轻量版**：不想部署整套平台？试试 [artex-skill](https://github.com/chu0119/artex-skill) —— ARTEX 方法论的单技能版，任意 AI Agent 即装即用
+
 </div>
 
 ---
