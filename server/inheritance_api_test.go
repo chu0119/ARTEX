@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Autumn-27/artex/db"
+	"github.com/chu0119/artex/db"
 )
 
 func TestInheritedActivityDetailAndRelationDeletion(t *testing.T) {

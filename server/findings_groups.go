@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/Autumn-27/artex/db"
+	"github.com/chu0119/artex/db"
 )
 
 const maxFindingFollowUpRunes = 4000

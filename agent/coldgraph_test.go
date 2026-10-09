@@ -3,7 +3,7 @@ package agent
 import (
 	"testing"
 
-	"github.com/Autumn-27/artex/db"
+	"github.com/chu0119/artex/db"
 )
 
 // helper: intent/fact node

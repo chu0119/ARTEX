@@ -98,8 +98,28 @@ jobs:
 
   # ④ 多架构镜像 → 推 Docker Hub（复用 binaries 编好的 Linux 二进制，
   #    镜像里只装工具 + 放二进制；arm64 仅需模拟 apt 层，构建快很多）
+  #    未配置 DOCKERHUB_USERNAME / DOCKERHUB_TOKEN secrets 时自动跳过，
+  #    不影响 GitHub Release 的产出。
+  docker-cred-check:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check.outputs.ok }}
+    steps:
+      - id: check
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          if [ -n "$DOCKERHUB_USERNAME" ] && [ -n "$DOCKERHUB_TOKEN" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::未配置 DOCKERHUB_USERNAME / DOCKERHUB_TOKEN secrets，跳过 Docker 镜像发布（GitHub Release 不受影响）"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
   docker:
-    needs: binaries
+    needs: [binaries, docker-cred-check]
+    if: needs.docker-cred-check.outputs.ok == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # 取 Dockerfile 与 skills/
@@ -120,7 +140,8 @@ jobs:
       - uses: docker/metadata-action@v5
         id: meta
         with:
-          images: autumn27/artex
+          # 镜像名跟随 secrets 里配置的 Docker Hub 用户名，推到自己的命名空间
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/artex
           tags: |
             type=ref,event=tag
             type=raw,value=latest
