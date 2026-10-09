@@ -7,7 +7,7 @@ AI 自主渗透测试系统（Go 后端 + Next.js 前端）
 
 🌐 **在线 Demo**： [https://artex-demo.vercel.app/](https://artex-demo.vercel.app/)
 
-📦 **该仓库为ARTEX最后一个版本纯源码备份，docker部署源失效自行让AI本地构建即可**
+📦 **独立维护版**（接手自已删除的原作者仓库）；Docker 镜像：`ghcr.io/chu0119/artex`
 
 </div>
 
@@ -89,7 +89,7 @@ cd ARTEX
 git clone https://github.com/chu0119/ARTEX.git
 cd ARTEX
 cp .env.example .env          # 填 POSTGRES_PASSWORD、可选 ANTHROPIC_API_KEY
-docker compose up -d          # 拉取 artex 镜像（.env 里 ARTEX_IMAGE 可覆盖）+ postgres
+docker compose up -d          # 拉取 ghcr.io/chu0119/artex 镜像 + postgres
 # → http://localhost:8787
 ```
 

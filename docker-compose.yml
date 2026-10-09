@@ -15,8 +15,8 @@ services:
     restart: unless-stopped
 
   artex:
-    # 原作者 Docker Hub 镜像源已失效；发布自建镜像后用 ARTEX_IMAGE 覆盖
-    image: ${ARTEX_IMAGE:-autumn27/artex}:${ARTEX_TAG:-latest}
+    # 镜像发布在 GHCR；需要换源时用 ARTEX_IMAGE 覆盖（如自建的 Docker Hub 镜像）
+    image: ${ARTEX_IMAGE:-ghcr.io/chu0119/artex}:${ARTEX_TAG:-latest}
     depends_on:
       postgres:
         condition: service_healthy
