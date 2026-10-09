@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> **⚠️ 原 ARTEX 仓库已失效**：原作者仓库 [Autumn-27/ARTEX](https://github.com/Autumn-27/ARTEX) 已被删除，原有链接、Releases 下载与 Docker 镜像源全部失效，**已无法部署使用**。
+> **✅ 本仓库是接手修复后的独立维护版，可直接部署、直接使用**：基于原作者最终定版（v0.3.15）源码，修复了 Go 模块路径、页面一键更新源与 Docker 镜像源，全部功能正常。部署命令与原仓库一致：`git clone https://github.com/chu0119/ARTEX.git && cd ARTEX && ./install.sh`，详见下方[安装](#安装)。
+
 <div align="center">
 
 # ARTEX
@@ -7,7 +11,7 @@ AI 自主渗透测试系统（Go 后端 + Next.js 前端）
 
 🌐 **在线 Demo**： [https://artex-demo.vercel.app/](https://artex-demo.vercel.app/)
 
-📦 **独立维护版**（接手自已删除的原作者仓库）；Docker 镜像：`ghcr.io/chu0119/artex`
+📦 **独立维护版**（接手自已删除的原作者仓库）；Docker 镜像：`xingchuan1314/artex`（Docker Hub）· `ghcr.io/chu0119/artex`
 
 </div>
 
@@ -89,7 +93,7 @@ cd ARTEX
 git clone https://github.com/chu0119/ARTEX.git
 cd ARTEX
 cp .env.example .env          # 填 POSTGRES_PASSWORD、可选 ANTHROPIC_API_KEY
-docker compose up -d          # 拉取 ghcr.io/chu0119/artex 镜像 + postgres
+docker compose up -d          # 拉取 xingchuan1314/artex 镜像 + postgres
 # → http://localhost:8787
 ```
 

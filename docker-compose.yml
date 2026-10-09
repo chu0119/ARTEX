@@ -15,8 +15,8 @@ services:
     restart: unless-stopped
 
   artex:
-    # 镜像发布在 GHCR；需要换源时用 ARTEX_IMAGE 覆盖（如自建的 Docker Hub 镜像）
-    image: ${ARTEX_IMAGE:-ghcr.io/chu0119/artex}:${ARTEX_TAG:-latest}
+    # 镜像在 Docker Hub 与 GHCR 双源发布；需要换源时用 ARTEX_IMAGE 覆盖
+    image: ${ARTEX_IMAGE:-xingchuan1314/artex}:${ARTEX_TAG:-latest}
     depends_on:
       postgres:
         condition: service_healthy
