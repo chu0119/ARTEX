@@ -99,12 +99,15 @@ func BuildNucleiCmd(ctx context.Context, templatesDir string, a ScanArgs) (*exec
 
 	args := []string{
 		"-target", a.Target,
-		"-t", templatesDir,
 		"-jsonl",
 		"-silent",
 		"-no-color",
 		"-disable-update-check",
 	}
+	// -t 是叠加而不是覆盖：先给整棵树再给单文件，nuclei 会把两者并集都跑一遍，
+	// 于是 cve_id 本意「只跑命中该 CVE 的模板」变成「整棵树 + 那几个」，实测
+	// 11,191 个模板而非 2 个（3m43s vs 0.47s）。所以两条路径互斥：
+	// 有 cve_id 只传命中文件，没有才传整棵树。
 	if cve := strings.TrimSpace(a.CVEID); cve != "" {
 		templates := FindNucleiTemplates(templatesDir, cve)
 		if len(templates) == 0 {
@@ -114,6 +117,8 @@ func BuildNucleiCmd(ctx context.Context, templatesDir string, a ScanArgs) (*exec
 		for _, rel := range templates {
 			args = append(args, "-t", filepath.Join(templatesDir, filepath.FromSlash(rel)))
 		}
+	} else {
+		args = append(args, "-t", templatesDir)
 	}
 	if sev := strings.TrimSpace(a.Severity); sev != "" {
 		args = append(args, "-severity", sev)
