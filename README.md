@@ -31,10 +31,11 @@ git 历史里作为起点，v0.3.16 以来的 **160+ 提交、约 4 万行新增
 | 能力线 | 本版本做了什么 |
 |---|---|
 | **漏洞情报运营** | NVD / CISA KEV / GitHub Advisory / PoC 聚合 / nuclei 模板联动 / 资产指纹→CVE 反向匹配 / **近期高危快通道**（30 分钟一轮）——原作者版本完全没有情报层 |
-| **红队作战** | TCP 回连接收器（接住反弹 shell 并留证）/ **C2 出口三形态**（direct / SSH 中继托管 / manual）/ redteam-ops 后渗透方法论 skill / 9 件后渗透工具（socat/proxychains/ligolo/linpeas/pspy/evil-winrm…） |
+| **红队作战** | TCP 回连接收器（接住反弹 shell 并留证）/ **C2 出口三形态**（direct / SSH 中继托管 / manual，**UI 管理页**：监听器启停/会话捕获可视化）/ redteam-ops 后渗透方法论 skill / 9 件后渗透工具（socat/proxychains/ligolo/linpeas/pspy/evil-winrm…） |
 | **安全与合规** | 登录防爆破（IP 锁定+全局限流）/ 探活端点去指纹 / 改密码即吊销全部会话 / 安全响应头 / 认证面无产品名——**公网部署基线** |
 | **工程可靠性** | LLM 三通道轮询（熔断+故障转移+用量归因）/ 拆解墙钟 / planner 双保险 / 任务收官 / 一键更新（校验+回滚） |
-| **工具与交付** | 宿主工具 54+ 件**一键装齐** / 漏洞 19 类标准枚举 / Word 报告导出 / 证据版本化+sha256 校验 / 手机端适配 |
+| **工具与交付** | 宿主工具 63 件**一键装齐** / 漏洞 19 类标准枚举 / **专业级 Word 报告**（封面·目录·页眉页脚·严重度着色·复测记录·流量证据·修复路线图）/ 证据版本化+sha256 校验 / 手机端适配 |
+| **Agent 推理** | **意图假设与成功判据**（hypothesis/success_criteria）/ worker 五步作业框架+绕过清单 / stop_reason 进态势（接续归因不再靠猜）/ Guard 归因回流 planner / 续跑摘要与零写回复盘 / **按角色配模型**（模型路由策略文档化） |
 
 原作者版本有的核心（双图架构、planner/worker 编排、MITM 流量代理、审批门）全部
 保留并在其上加固；下文详述。
@@ -156,7 +157,7 @@ flowchart LR
   agent 直接填 payload，无需自行判断网络形态。
 - **redteam-ops skill**：后渗透六阶段方法论（落地稳定化→提权→权限保持→凭据
   获取→横向移动→数据获取回传→收尾）+ 证据纪律。
-- **后渗透工具 54+**：impacket/netexec/evil-winrm/chisel/ligolo-ng/proxychains/
+- **后渗透工具（含 9 件红队补齐）**：impacket/netexec/evil-winrm/chisel/ligolo-ng/proxychains/
   socat/linpeas/pspy/responder/sqlmap/hydra/hashcat/nuclei/ffuf…全部可在
   「宿主环境」页**一键装齐**（特权助手 artex-hostd 串行排队执行）。
 
@@ -334,7 +335,10 @@ docs/           设计文档 / 部署手册 / 评估报告 / 能力对照
 | [docs/公网部署安全加固-2026-10-29.md](docs/公网部署安全加固-2026-10-29.md) | 公网部署安全基线 |
 | [docs/红队能力建设-2026-10-30.md](docs/红队能力建设-2026-10-30.md) | 杀伤链能力矩阵 / 竞品对照 / 路线图 |
 | [docs/漏洞挖掘能力对比.md](docs/漏洞挖掘能力对比.md) | 与开源同类逐项对比、M 清单 |
-| [docs/产品优化清单-2026-10-29.md](docs/产品优化清单-2026-10-29.md) | 优化/新增/删除路线图 |
+| [docs/产品优化清单-2026-10-29.md](docs/产品优化清单-2026-10-29.md) | 优化/新增/删除路线图（历史快照） |
+| [docs/产品全面体检-2026-10-31.md](docs/产品全面体检-2026-10-31.md) | 四路全面体检：P0 缺陷基线/冗余清单/执行批次状态 |
+| [docs/深度优化方案-2026-10-31.md](docs/深度优化方案-2026-10-31.md) | 报告质感×Agent 认知×攻击链——当前路线图 |
+| [docs/模型路由策略.md](docs/模型路由策略.md) | 按角色配模型：planner 强推理/worker 中推理/judge 便宜档 |
 
 ## 与原作者版本的关系（来源声明）
 
